@@ -1,0 +1,113 @@
+<script type="text/ng-template" id="customPopupTemplate.html" xmlns="http://www.w3.org/1999/html">
+    <div class="custom-popup-wrapper"
+         ng-style="{top: position().top+'px', left: position().left+'px'}"
+         style="display: block;"
+         ng-show="isOpen() && !moveInProgress"
+         aria-hidden="{{!isOpen()}}">
+        <p class="message">请选择机场.</p>
+
+        <ul class="dropdown-menu" role="listbox">
+            <li ng-repeat="match in matches track by $index" ng-class="{active: isActive($index) }"
+                ng-mouseenter="selectActive($index)" ng-click="selectMatch($index)" role="option" id="{{::match.id}}">
+                <div uib-typeahead-match index="$index" match="match" query="query" template-url="templateUrl"></div>
+            </li>
+        </ul>
+    </div>
+</script>
+
+<div ng-controller="CarouselCtrl">
+    <uib-carousel interval="myInterval" no-wrap="noWrapSlides">
+        <uib-slide ng-repeat="slide in slides" active="slide.active" index="slide.id">
+            <img ng-src="{{slide.image}}" style="margin:auto;">
+            <div class="carousel-caption">
+            </div>
+        </uib-slide>
+    </uib-carousel>
+</div>
+
+
+<div class="container">
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-md-2" ng-controller="Buttons1Ctrl">
+                <p>
+                <div class="btn-group">
+                    <label class="btn btn-default" ng-model="radioModel" uib-btn-radio="'one'" uncheckable>单程</label>
+                    <label class="btn btn-default" ng-model="radioModel" uib-btn-radio="'round'" uncheckable>往返</label>
+                </div>
+                </p>
+            </div>
+            <div class="col-md-2" ng-controller="Buttons2Ctrl">
+                <p>
+                <div class="btn-group">
+                    <label class="btn btn-default" ng-model="radioModel" uib-btn-radio="'direct'" uncheckable>直飞</label>
+                    <label class="btn btn-default" ng-model="radioModel" uib-btn-radio="'indirect'" uncheckable>转机</label>
+                </div>
+                </p>
+            </div>
+            <div class="col-md-4" ng-controller="Buttons3Ctrl">
+                <p>
+                <div class="btn-group">
+                    <label class="btn btn-default" ng-model="radioModel" uib-btn-radio="'economy'" uncheckable>经济舱</label>
+                    <label class="btn btn-default" ng-model="radioModel" uib-btn-radio="'buiness'" uncheckable>商务舱</label>
+                    <label class="btn btn-default" ng-model="radioModel" uib-btn-radio="'first'" uncheckable>头等舱</label>
+                </div>
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4" ng-controller="TypeaheadCtrl">
+                <p class="input-group">
+                    <span class="input-group-addon" id="basic-addon3">出发地 :</span>
+                    <input type="text" ng-model="customPopupSelected" placeholder="请选择机场" uib-typeahead="state as state.name for state in statesWithFlags | filter:{name:$viewValue}" typeahead-popup-template-url="customPopupTemplate.html" class="form-control">
+                </p>
+            </div>
+            <div class="col-md-4" ng-controller="TypeaheadCtrl">
+                <p class="input-group">
+                    <span class="input-group-addon" id="basic-addon4">目的地 :</span>
+                    <input type="text" ng-model="customPopupSelected" placeholder="请选择机场" uib-typeahead="state as state.name for state in statesWithFlags | filter:{name:$viewValue}" typeahead-popup-template-url="customPopupTemplate.html" class="form-control">
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4" ng-controller="DatepickerCtrl">
+                <p class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">出发时间 :</span>
+                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="status.opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" alt-input-formats="altInputFormats"/>
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </p>
+            </div>
+            <div class="col-md-4" ng-controller="DatepickerCtrl">
+                <p class="input-group">
+                    <span class="input-group-addon" id="basic-addon2">返回时间 :</span>
+                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="status.opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" alt-input-formats="altInputFormats"/>
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4" ng-controller="PopoverCtrl">
+                <p class="input-group">
+                    <span class="input-group-addon" id="basic-addon5">成人 :</span>
+                    <select class="form-control" ng-model="number.selected" ng-options="o as o for o in number.options"></select>            </p>
+            </div>
+            <div class="col-md-4" ng-controller="PopoverCtrl">
+                <p class="input-group">
+                    <span class="input-group-addon" id="basic-addon6">儿童(2-12) :</span>
+                    <select class="form-control" ng-model="number.selected" ng-options="o as o for o in number.options"></select>            </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8 text-center" ng-controller="">
+                <button type="button" class="btn btn-default" ng-model="singleModel" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+                    开始查询
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
