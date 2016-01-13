@@ -1,0 +1,147 @@
+<div class="container">
+
+    <form name="form">
+        <div class="container-fluid" ng-controller="MyController">
+            <bs-grid options="gridOptions" on-select="rowSelect"></bs-grid>
+            <!--<pagination-grid options="gridOptions" on-select="rowSelect"></pagination-grid>-->
+            <button class="btn btn-default" ng-click="submitData()" type="button">Submit Form</button>
+            <p>{{resultData}}</p>
+
+            <div class="grid-page-bar">
+                <a href="javascript:void(0)" class='glyphicon glyphicon-step-backward paged-grid-ctrl-link paged-grid-link' ng-click="first()" ng-class="currentPage==1?'not-active':''"></a>
+                <a href="javascript:void(0)" class='glyphicon glyphicon-triangle-left paged-grid-ctrl-link2 paged-grid-link' ng-click="previous()" ng-class="currentPage==1?'not-active':''"></a>
+
+                <a href="javascript:void(0)" class="paged-grid-num-link paged-grid-link" ng-if="currentGroup > 0" ng-click="previousGroup()">...</a>
+                <a href="javascript:void(0)" class="paged-grid-num-link paged-grid-link" ng-repeat="pageNum in pageNums[currentGroup]" ng-click="paged(pageNum)" ng-class="pageNum == currentPage ? 'paged-grid-link-active' : ''">{{pageNum}}</a>
+                <a href="javascript:void(0)" class="paged-grid-num-link paged-grid-link" ng-if="currentGroup < maxGroup" ng-click="nextGroup()">...</a>
+
+                <a href="javascript:void(0)" class='glyphicon glyphicon-triangle-right paged-grid-ctrl-link3 paged-grid-link' ng-click="next()" ng-class="currentPage==maxNum?'not-active':''"></a>
+                <a href="javascript:void(0)" class='glyphicon glyphicon-step-forward paged-grid-ctrl-link paged-grid-link' ng-click="last()" ng-class="currentPage==maxNum?'not-active':''"></a>
+                <span>当前 {{itemNumberStart()}} - {{itemNumberEnd()}} 条，总共 {{totalSize}} 条</span>
+                <div class="pull-right">
+                    <span>每页显示</span>
+                    <select ng-model="displayItemNum"><option ng-repeat="di in displayList" value ="{{di}}">{{di}}</option></select>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    var myApp = angular.module('myApp', ['ng-bootstrap-grid']);
+    myApp.controller('MyController', ['$scope', function($scope) {
+        $scope.displayList = [10,25,50];
+        $scope.totalSize = 221;
+        $scope.displayItemNum = 10;
+        $scope.currentPage = 1;
+        $scope.currentGroup = 0;
+        $scope.maxNum = parseInt($scope.totalSize / $scope.displayItemNum) + 1;
+        console.log('maxNum is ' + $scope.maxNum);
+        var numArray =[], itemArray = [], groupId= 0, itemId = 1, loopId = 1;
+        while(itemId <= $scope.maxNum) {
+            itemArray.push(itemId++);
+            loopId++;
+            if(loopId == 11) {
+                groupId++;
+                loopId = 1;
+                numArray.push(itemArray);
+                itemArray = [];
+            }
+            if(itemId > $scope.maxNum) {
+                numArray.push(itemArray);
+            }
+        }
+        $scope.maxGroup = groupId;
+        $scope.pageNums= numArray;
+        console.log('Page Num is ' + numArray);
+        $scope.itemNumberStart = function() {
+            return ($scope.currentPage-1) * $scope.displayItemNum + 1;
+        }
+        $scope.itemNumberEnd = function() {
+            var endNum = ($scope.currentPage-1) * $scope.displayItemNum + 10;
+            if(endNum > $scope.totalSize) {
+                return $scope.totalSize;
+            } else {
+                return endNum;
+            }
+        }
+        $scope.paged = function(pageNum) {
+            $scope.currentPage = pageNum;
+            console.log('Clicked page num is ' + pageNum);
+        }
+        var getGroup = function(page) {
+            var returnGroup = 0, group = 0;
+            _.forEach($scope.pageNums, function(groups) {
+                if(_.includes(groups, page)) {
+                    returnGroup = group;
+                }
+                group++;
+            });
+            return returnGroup;
+        }
+        $scope.previous = function() {
+            $scope.currentPage--;
+            $scope.currentGroup = getGroup($scope.currentPage);
+            $scope.paged($scope.currentPage);
+        }
+        $scope.next = function() {
+            $scope.currentPage++;
+            $scope.currentGroup = getGroup($scope.currentPage);
+            $scope.paged($scope.currentPage);
+        }
+        $scope.first= function() {
+            $scope.currentPage = 1;
+            $scope.currentGroup = 0;
+            console.log('Next page num is ' + $scope.currentGroup);
+        }
+        $scope.last= function() {
+            $scope.currentPage = $scope.maxNum;
+            $scope.currentGroup = $scope.maxGroup;
+        }
+        $scope.nextGroup = function() {
+            $scope.currentGroup++;
+            console.log('Next page num is ' + $scope.currentGroup);
+        }
+        $scope.previousGroup = function() {
+            $scope.currentGroup--;
+            console.log('previous page num is ' + $scope.currentGroup + " , maxGroup is" + $scope.maxGroup);
+        }
+        $scope.gridOptions = {
+            enableRowSelection: true,
+            enableGridMenu: true,
+            noDataMessage: '没有找到匹配的结果',
+            columnDefs : [
+                {displayName: 'FirstName', field:'firstName',cellStyle: "width:25%"},
+                {displayName: 'LastName', field:'lastName'},
+                {displayName: 'Company', field:'company'},
+                {displayName: 'Employed', field:'employed'}
+            ],
+            data : [
+                {
+                    "firstName": "Cox",
+                    "lastName": "Carney",
+                    "company": "Enormo",
+                    "employed": true
+                },
+                {
+                    "firstName": "Lorraine",
+                    "lastName": "Wise",
+                    "company": "Comveyer",
+                    "employed": false
+                },
+                {
+                    "firstName": "Nancy",
+                    "lastName": "Waters",
+                    "company": "Enormo",
+                    "employed": false
+                }
+            ]
+        }
+        $scope.submitData = function() {
+            $scope.resultData = $scope.gridOptions.data;
+            console.log(JSON.stringify($scope.gridOptions.data, null, '\t'));
+        }
+        $scope.rowSelect = function(row) {
+            console.log('run row select');
+        }
+    }]);
+</script>

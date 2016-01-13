@@ -27,10 +27,9 @@
 
 
 <div class="container">
-    <div class="container-fluid">
-
+    <div class="container-fluid" ng-controller="ButtonsGoCtrl">
         <div class="row">
-            <div class="col-md-2" ng-controller="Buttons1Ctrl">
+            <div class="col-md-2" ng-controller="ButtonsSingleCtrl">
                 <p>
                 <div class="btn-group">
                     <label class="btn btn-default" ng-model="radioModel" uib-btn-radio="'one'" uncheckable>单程</label>
@@ -38,7 +37,7 @@
                 </div>
                 </p>
             </div>
-            <div class="col-md-2" ng-controller="Buttons2Ctrl">
+            <div class="col-md-2" ng-controller="ButtonsDirectCtrl">
                 <p>
                 <div class="btn-group">
                     <label class="btn btn-default" ng-model="radioModel" uib-btn-radio="'direct'" uncheckable>直飞</label>
@@ -46,7 +45,7 @@
                 </div>
                 </p>
             </div>
-            <div class="col-md-4" ng-controller="Buttons3Ctrl">
+            <div class="col-md-4" ng-controller="ButtonsEcoCtrl">
                 <p>
                 <div class="btn-group">
                     <label class="btn btn-default" ng-model="radioModel" uib-btn-radio="'economy'" uncheckable>经济舱</label>
@@ -65,7 +64,7 @@
             </div>
             <div class="col-md-4" ng-controller="TypeaheadCtrl">
                 <p class="input-group">
-                    <span class="input-group-addon" id="basic-addon4">目的地 :</span>
+                    <span  class="input-group-addon" id="basic-addon4">目的地 :</span>
                     <input type="text" ng-model="customPopupSelected" placeholder="请选择机场" uib-typeahead="state as state.name for state in statesWithFlags | filter:{name:$viewValue}" typeahead-popup-template-url="customPopupTemplate.html" class="form-control">
                 </p>
             </div>
@@ -94,19 +93,34 @@
             <div class="col-md-4" ng-controller="PopoverCtrl">
                 <p class="input-group">
                     <span class="input-group-addon" id="basic-addon5">成人 :</span>
-                    <select class="form-control" ng-model="number.selected" ng-options="o as o for o in number.options"></select>            </p>
+                    <select class="form-control" ng-model="number.selected" ng-options="o as o for o in number.options"></select>
+                </p>
             </div>
             <div class="col-md-4" ng-controller="PopoverCtrl">
                 <p class="input-group">
                     <span class="input-group-addon" id="basic-addon6">儿童(2-12) :</span>
-                    <select class="form-control" ng-model="number.selected" ng-options="o as o for o in number.options"></select>            </p>
+                    <select class="form-control" ng-model="number.selected" ng-options="o as o for o in number.options"></select>
+                </p>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-8 text-center" ng-controller="">
-                <button type="button" class="btn btn-default" ng-model="singleModel" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
-                    开始查询
-                </button>
+            <div class="col-md-8 text-center">
+                <div class="col-md-5">
+                </div>
+                <div class="col-md-2">
+                    <a href="#result" type="button" class="btn btn-default" ng-click="addAlert()">
+                        开始查询
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8 text-center">
+                    <div class="col-md-4">
+                    </div>
+                    <div class="col-md-4">
+                        <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+                    </div>
             </div>
         </div>
     </div>

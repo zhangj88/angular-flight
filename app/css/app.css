@@ -33,6 +33,46 @@ footer {
     box-shadow: none;
 }
 
+
+.paged-grid-link {
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    cursor: pointer;
+    text-decoration: none;
+}
+.paged-grid-link:hover {
+    border: 1px solid #c8ebfe;
+    text-decoration: none;
+    background-color: #e9f3f8;
+}
+.paged-grid-link-active {
+    border: 1px solid #c8ebfe;
+    text-decoration: none;
+    background-color: #4f91cc;
+    color: #fff;
+}
+.paged-grid-link-active:hover {
+    border: 1px solid #c8ebfe;
+    text-decoration: none;
+    background-color: #4f91cc;
+    color: #fff;
+}
+.paged-grid-ctrl-link {
+    padding: 4px 5px;
+}
+.paged-grid-ctrl-link2 {
+    padding: 4px 6px 4px 4px;
+}
+.paged-grid-ctrl-link3 {
+    padding: 4px 3px 4px 6px;
+}
+.paged-grid-num-link {
+    padding: 4px 8px;
+    border: 1px solid transparent;
+    border-radius: 25px;
+    cursor: pointer;
+}
+
 .phone-images {
   background-color: white;
   width: 450px;
