@@ -49,73 +49,26 @@ phonecatControllers.controller('TypeaheadCtrl', function($scope, $http) {
 });
 
 phonecatControllers.controller('ButtonsSingleCtrl', function ($scope) {
-    $scope.singleModel = 1;
-
-    $scope.radioModel = 'round';
-
-    $scope.checkModel = {
-        left: false,
-        middle: true,
-        right: false
-    };
-
-    $scope.checkResults = [];
-
-    $scope.$watchCollection('checkModel', function () {
-        $scope.checkResults = [];
-        angular.forEach($scope.checkModel, function (value, key) {
-            if (value) {
-                $scope.checkResults.push(key);
-            }
-        });
+    $scope.radioModel = $scope.$parent.ButtonsSingleCtrlCheckModel;
+    $scope.$watch('radioModel', function () {
+        $scope.$parent.ButtonsSingleCtrlCheckModel = $scope.radioModel;
     });
 });
 phonecatControllers.controller('ButtonsDirectCtrl', function ($scope) {
-    $scope.singleModel = 1;
-
-    $scope.radioModel = 'direct';
-
-    $scope.checkModel = {
-        left: false,
-        middle: true,
-        right: false
-    };
-
-    $scope.checkResults = [];
-
-    $scope.$watchCollection('checkModel', function () {
-        $scope.checkResults = [];
-        angular.forEach($scope.checkModel, function (value, key) {
-            if (value) {
-                $scope.checkResults.push(key);
-            }
-        });
+    $scope.radioModel = $scope.$parent.ButtonsDirectCtrlCheckModel;
+    $scope.$watch('radioModel', function () {
+        $scope.$parent.ButtonsDirectCtrlCheckModel = $scope.radioModel;
     });
+
 });
 phonecatControllers.controller('ButtonsEcoCtrl', function ($scope) {
-    $scope.singleModel = 1;
-
-    $scope.radioModel = 'economy';
-
-    $scope.checkModel = {
-        left: false,
-        middle: true,
-        right: false
-    };
-
-    $scope.checkResults = [];
-
-    $scope.$watchCollection('checkModel', function () {
-        $scope.checkResults = [];
-        angular.forEach($scope.checkModel, function (value, key) {
-            if (value) {
-                $scope.checkResults.push(key);
-            }
-        });
+    $scope.radioModel = $scope.$parent.ButtonsEcoCtrlCheckModel;
+    $scope.$watch('radioModel', function () {
+        $scope.$parent.ButtonsEcoCtrlCheckModel = $scope.radioModel;
     });
 });
 
-phonecatControllers.controller('PopoverCtrl', function ($scope) {
+phonecatControllers.controller('AdultNumberCtrl', function ($scope) {
     $scope.number = {
         options: [
             0,
@@ -125,19 +78,69 @@ phonecatControllers.controller('PopoverCtrl', function ($scope) {
             4,
             5
         ],
-        selected: 0
+        selected: $scope.$parent.AdultNumberCtrlSelected
     };
+
+    $scope.update = function(){
+        $scope.$parent.AdultNumberCtrlSelected = $scope.number.selected;
+    }
+
 });
 
-phonecatControllers.controller('ButtonsGoCtrl', function ($scope) {
+phonecatControllers.controller('ChildNumberCtrl', function ($scope) {
+    $scope.number = {
+        options: [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+        ],
+        selected: $scope.$parent.ChildNumberCtrlSelected
+    };
+
+    $scope.update = function(){
+        $scope.$parent.ChildNumberCtrlSelected = $scope.number.selected;
+    }
+
+});
+
+phonecatControllers.controller('ButtonsGoCtrl', function ($scope, $location) {
     $scope.alerts = [
     ];
 
+    $scope.AdultNumberCtrlSelected = 0;
+    $scope.ChildNumberCtrlSelected = 0;
+    $scope.ButtonsEcoCtrlCheckModel = 'economy';
+    $scope.ButtonsDirectCtrlCheckModel = 'direct';
+    $scope.ButtonsSingleCtrlCheckModel = 'round';
+    $scope.DatepickerFromCtrlSelected = new Date();
+    $scope.DatepickerBackCtrlSelected = new Date();
+
 
     $scope.addAlert = function() {
-        $scope.alerts.pop();
-        $scope.alerts.push({msg: 'Another alert!'});
+        console.info($scope.ButtonsEcoCtrlCheckModel + $scope.ButtonsDirectCtrlCheckModel + $scope.ButtonsSingleCtrlCheckModel);
+
+        console.info($scope.DatepickerFromCtrlSelected + "----" + $scope.DatepickerBackCtrlSelected);
+
+        $scope.alerts = [];
+        if (($scope.AdultNumberCtrlSelected == 0) && ($scope.ChildNumberCtrlSelected == 0)) {
+            $scope.alerts.push({msg: "??????"});
+        }
+        if (($scope.DatepickerFromCtrlSelected > $scope.DatepickerBackCtrlSelected) && $scope.ButtonsSingleCtrlCheckModel == 'round') {
+            $scope.alerts.push({msg: "??!!!"});
+        }
+        if ($scope.alerts.length == 0) {
+            $location.path("/result");
+        }
     };
+
+    $scope.$watch('ButtonsSingleCtrlCheckModel', function () {
+        var div = document.getElementById('DatepickerBackCtrl');
+        if ($scope.ButtonsSingleCtrlCheckModel == 'round') div.style.visibility = 'visible';
+        else div.style.visibility = 'hidden';
+    });
 
     $scope.closeAlert = function(index) {
         $scope.alerts.splice(index, 1);
@@ -202,14 +205,14 @@ phonecatControllers.controller('CarouselCtrl', function ($scope) {
     }
 });
 
-phonecatControllers.controller('DatepickerCtrl', function ($scope) {
+phonecatControllers.controller('DatepickerFromCtrl', function ($scope) {
     $scope.today = function() {
         $scope.dt = new Date();
     };
     $scope.today();
 
     $scope.clear = function () {
-        $scope.dt = null;
+        $scope.dt = new Date();
     };
 
     // Disable weekend selection
@@ -217,6 +220,10 @@ phonecatControllers.controller('DatepickerCtrl', function ($scope) {
         return false;
 //        return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
     };
+
+    $scope.$watch('dt', function () {
+        $scope.$parent.DatepickerFromCtrlSelected = $scope.dt;
+    });
 
     $scope.toggleMin = function() {
         $scope.minDate = $scope.minDate ? null : new Date();
@@ -244,37 +251,54 @@ phonecatControllers.controller('DatepickerCtrl', function ($scope) {
         opened: false
     };
 
-    var tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    var afterTomorrow = new Date();
-    afterTomorrow.setDate(tomorrow.getDate() + 2);
-    $scope.events =
-        [
-            {
-                date: tomorrow,
-                status: 'full'
-            },
-            {
-                date: afterTomorrow,
-                status: 'partially'
-            }
-        ];
+});
 
-    $scope.getDayClass = function(date, mode) {
-        if (mode === 'day') {
-            var dayToCheck = new Date(date).setHours(0,0,0,0);
-
-            for (var i=0;i<$scope.events.length;i++){
-                var currentDay = new Date($scope.events[i].date).setHours(0,0,0,0);
-
-                if (dayToCheck === currentDay) {
-                    return $scope.events[i].status;
-                }
-            }
-        }
-
-        return '';
+phonecatControllers.controller('DatepickerBackCtrl', function ($scope) {
+    $scope.today = function() {
+        $scope.dt = new Date();
     };
+    $scope.today();
+
+    $scope.clear = function () {
+        $scope.dt = new Date();
+    };
+
+    // Disable weekend selection
+    $scope.disabled = function(date, mode) {
+        return false;
+//        return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
+    };
+
+    $scope.$watch('dt', function () {
+        $scope.$parent.DatepickerBackCtrlSelected = $scope.dt;
+    });
+
+    $scope.toggleMin = function() {
+        $scope.minDate = $scope.minDate ? null : new Date();
+    };
+    $scope.toggleMin();
+    $scope.maxDate = new Date(2020, 5, 22);
+
+    $scope.open = function($event) {
+        $scope.status.opened = true;
+    };
+
+    $scope.setDate = function(year, month, day) {
+        $scope.dt = new Date(year, month, day);
+    };
+
+    $scope.dateOptions = {
+        formatYear: 'yy',
+        startingDay: 1
+    };
+
+    $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+    $scope.format = $scope.formats[0];
+
+    $scope.status = {
+        opened: false
+    };
+
 });
 
 

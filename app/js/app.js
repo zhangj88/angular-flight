@@ -5,7 +5,7 @@
 var phonecatApp = angular.module('phonecatApp', [
     'ngRoute',
     'ui.bootstrap',
-  //  'ngTasty',
+    'ngTasty',
     'phonecatAnimations',
     'phonecatControllers',
     'phonecatFilters',

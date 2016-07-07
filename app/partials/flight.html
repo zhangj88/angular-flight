@@ -1,3 +1,7 @@
+<head>
+    <meta charset="utf-8"/>
+</head>
+
 <script type="text/ng-template" id="customPopupTemplate.html" xmlns="http://www.w3.org/1999/html">
     <div class="custom-popup-wrapper"
          ng-style="{top: position().top+'px', left: position().left+'px'}"
@@ -12,6 +16,12 @@
                 <div uib-typeahead-match index="$index" match="match" query="query" template-url="templateUrl"></div>
             </li>
         </ul>
+    </div>
+</script>
+
+<script type="text/ng-template" id="alert.html" charset="utf-8">
+    <div class="alert" style="background-color:#fa39c3;color:white" role="alert">
+        <div ng-transclude></div>
     </div>
 </script>
 
@@ -32,7 +42,7 @@
             <div class="col-md-2" ng-controller="ButtonsSingleCtrl">
                 <p>
                 <div class="btn-group">
-                    <label class="btn btn-default" ng-model="radioModel" uib-btn-radio="'one'" uncheckable>单程</label>
+                    <label class="btn btn-default" ng-model="radioModel" uib-btn-radio="'single'" uncheckable>单程</label>
                     <label class="btn btn-default" ng-model="radioModel" uib-btn-radio="'round'" uncheckable>往返</label>
                 </div>
                 </p>
@@ -41,7 +51,7 @@
                 <p>
                 <div class="btn-group">
                     <label class="btn btn-default" ng-model="radioModel" uib-btn-radio="'direct'" uncheckable>直飞</label>
-                    <label class="btn btn-default" ng-model="radioModel" uib-btn-radio="'indirect'" uncheckable>转机</label>
+                    <label class="btn btn-default" ng-model="radioModel" uib-btn-radio="'transfer'" uncheckable>转机</label>
                 </div>
                 </p>
             </div>
@@ -49,8 +59,8 @@
                 <p>
                 <div class="btn-group">
                     <label class="btn btn-default" ng-model="radioModel" uib-btn-radio="'economy'" uncheckable>经济舱</label>
-                    <label class="btn btn-default" ng-model="radioModel" uib-btn-radio="'buiness'" uncheckable>商务舱</label>
-                    <label class="btn btn-default" ng-model="radioModel" uib-btn-radio="'first'" uncheckable>头等舱</label>
+                    <label class="btn btn-default" ng-model="radioModel" uib-btn-radio="'business'" uncheckable>商务舱</label>
+                    <label class="btn btn-default" ng-model="radioModel" uib-btn-radio="'vip'" uncheckable>头等舱</label>
                 </div>
                 </p>
             </div>
@@ -70,19 +80,19 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-4" ng-controller="DatepickerCtrl">
+            <div class="col-md-4" ng-controller="DatepickerFromCtrl">
                 <p class="input-group">
                     <span class="input-group-addon" id="basic-addon1">出发时间 :</span>
-                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="status.opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" alt-input-formats="altInputFormats"/>
+                    <input type="text" class="form-control" disabled="disabled" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="status.opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" alt-input-formats="altInputFormats"/>
                     <span class="input-group-btn">
                         <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
                     </span>
                 </p>
             </div>
-            <div class="col-md-4" ng-controller="DatepickerCtrl">
+            <div class="col-md-4" ng-controller="DatepickerBackCtrl" id="DatepickerBackCtrl">
                 <p class="input-group">
                     <span class="input-group-addon" id="basic-addon2">返回时间 :</span>
-                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="status.opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" alt-input-formats="altInputFormats"/>
+                    <input type="text" class="form-control" disabled="disabled" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="status.opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" alt-input-formats="altInputFormats"/>
                     <span class="input-group-btn">
                         <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
                     </span>
@@ -90,16 +100,16 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-4" ng-controller="PopoverCtrl">
+            <div class="col-md-4" ng-controller="AdultNumberCtrl">
                 <p class="input-group">
                     <span class="input-group-addon" id="basic-addon5">成人 :</span>
-                    <select class="form-control" ng-model="number.selected" ng-options="o as o for o in number.options"></select>
+                    <select class="form-control" ng-model="number.selected" ng-options="o as o for o in number.options" ng-change="update()"></select>
                 </p>
             </div>
-            <div class="col-md-4" ng-controller="PopoverCtrl">
+            <div class="col-md-4" ng-controller="ChildNumberCtrl">
                 <p class="input-group">
                     <span class="input-group-addon" id="basic-addon6">儿童(2-12) :</span>
-                    <select class="form-control" ng-model="number.selected" ng-options="o as o for o in number.options"></select>
+                    <select class="form-control" ng-model="number.selected" ng-options="o as o for o in number.options" ng-change="update()"></select>
                 </p>
             </div>
         </div>
@@ -108,7 +118,7 @@
                 <div class="col-md-5">
                 </div>
                 <div class="col-md-2">
-                    <a href="#result" type="button" class="btn btn-default" ng-click="addAlert()">
+                    <a type="button" class="btn btn-default" ng-click="addAlert()">
                         开始查询
                     </a>
                 </div>
@@ -119,7 +129,7 @@
                     <div class="col-md-4">
                     </div>
                     <div class="col-md-4">
-                        <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+                        <uib-alert ng-repeat="alert in alerts" template-url="alert.html">{{alert.msg}}</uib-alert>
                     </div>
             </div>
         </div>
