@@ -126,10 +126,10 @@ phonecatControllers.controller('ButtonsGoCtrl', function ($scope, $location) {
 
         $scope.alerts = [];
         if (($scope.AdultNumberCtrlSelected == 0) && ($scope.ChildNumberCtrlSelected == 0)) {
-            $scope.alerts.push({msg: "??????"});
+            $scope.alerts.push({msg: "人数不能为零!!!"});
         }
         if (($scope.DatepickerFromCtrlSelected > $scope.DatepickerBackCtrlSelected) && $scope.ButtonsSingleCtrlCheckModel == 'round') {
-            $scope.alerts.push({msg: "??!!!"});
+            $scope.alerts.push({msg: "出发日期早于到达日期!!!"});
         }
         if ($scope.alerts.length == 0) {
             $location.path("/result");
@@ -217,21 +217,20 @@ phonecatControllers.controller('DatepickerFromCtrl', function ($scope) {
 
     // Disable weekend selection
     $scope.disabled = function(date, mode) {
-        return false;
-//        return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
+//        return false;
+        return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
     };
 
     $scope.$watch('dt', function () {
         $scope.$parent.DatepickerFromCtrlSelected = $scope.dt;
     });
-
     $scope.toggleMin = function() {
         $scope.minDate = $scope.minDate ? null : new Date();
     };
     $scope.toggleMin();
     $scope.maxDate = new Date(2020, 5, 22);
 
-    $scope.open = function($event) {
+    $scope.open = function() {
         $scope.status.opened = true;
     };
 
@@ -250,6 +249,8 @@ phonecatControllers.controller('DatepickerFromCtrl', function ($scope) {
     $scope.status = {
         opened: false
     };
+
+
 
 });
 
@@ -279,7 +280,7 @@ phonecatControllers.controller('DatepickerBackCtrl', function ($scope) {
     $scope.toggleMin();
     $scope.maxDate = new Date(2020, 5, 22);
 
-    $scope.open = function($event) {
+    $scope.open = function() {
         $scope.status.opened = true;
     };
 
@@ -302,6 +303,229 @@ phonecatControllers.controller('DatepickerBackCtrl', function ($scope) {
 });
 
 
+phonecatControllers.controller('TableCtrl', function($scope) {
+    $scope.filters = '';
+    $scope.resource = {
+        "header": [
+            {
+                "key": "name",
+                "name": "Name",
+                "style": {},
+                "class": []
+            },
+            {
+                "key": "star",
+                "name": "Star",
+                "style": {},
+                "class": []
+            },
+            {
+                "key": "sf-Location",
+                "name": "SF Location",
+                "style": {},
+                "class": []
+            }
+        ],
+        "rows": [
+            {
+                "name": "Ritual Coffee Roasters",
+                "star": "★★★★★",
+                "sf-Location": "Hayes Valley",
+                "$$hashKey": "object:87"
+            },
+            {
+                "name": "Blue Bottle",
+                "star": "★★★★★",
+                "sf-Location": "Hayes Valley",
+                "$$hashKey": "object:88"
+            },
+            {
+                "name": "CoffeeShop",
+                "star": "★★★",
+                "sf-Location": "Bernal Heights",
+                "$$hashKey": "object:89"
+            },
+            {
+                "name": "Spike's Coffee & Teas",
+                "star": "★★★",
+                "sf-Location": "Castro",
+                "$$hashKey": "object:90"
+            },
+            {
+                "name": "La Boulange",
+                "star": "★★",
+                "sf-Location": "Cole Valley",
+                "$$hashKey": "object:91"
+            },
+            {
+                "name": "Dynamo Donut and Coffee",
+                "star": "★★★★★",
+                "sf-Location": "Cow Hollow",
+                "$$hashKey": "object:182"
+            },
+            {
+                "name": "The Mill",
+                "star": "★★★★",
+                "sf-Location": "Divisadero"
+            },
+            {
+                "name": "Piccino Coffee Bar",
+                "star": "★★★",
+                "sf-Location": "Dogpatch"
+            },
+            {
+                "name": "Philz",
+                "star": "★★★",
+                "sf-Location": "Downtown"
+            },
+            {
+                "name": "Duboce Park Cafe",
+                "star": "★★",
+                "sf-Location": "Duboce Triangle",
+                "$$hashKey": "object:173"
+            },
+            {
+                "name": "Blue Bottle",
+                "star": "★★★★★",
+                "sf-Location": "Embarcadero",
+                "$$hashKey": "object:146"
+            },
+            {
+                "name": "Four Barrel",
+                "star": "★★★",
+                "sf-Location": "Excelsior"
+            },
+            {
+                "name": "Coffee Bar",
+                "star": "★★★★★",
+                "sf-Location": "FiDi",
+                "$$hashKey": "object:183"
+            },
+            {
+                "name": "Biscoff Coffee Corner",
+                "star": "★★★",
+                "sf-Location": "Fisherman’s Wharf",
+                "$$hashKey": "object:145"
+            },
+            {
+                "name": "Fifty/Fifty Coffee and Tea",
+                "star": "★★★",
+                "sf-Location": "Inner Richmond"
+            },
+            {
+                "name": "Beanery",
+                "star": "★★★",
+                "sf-Location": "Inner Sunset",
+                "$$hashKey": "object:144"
+            },
+            {
+                "name": "Cafe du Soleil",
+                "star": "★★",
+                "sf-Location": "Lower Haight",
+                "$$hashKey": "object:172"
+            },
+            {
+                "name": "Peet's",
+                "star": "★",
+                "sf-Location": "The Marina",
+                "$$hashKey": "object:170"
+            },
+            {
+                "name": "Sightglass",
+                "star": "★★★★",
+                "sf-Location": "The Mission"
+            },
+            {
+                "name": "Contraband Coffee Bar",
+                "star": "★★★★",
+                "sf-Location": "Nob Hill"
+            },
+            {
+                "name": "Martha & Bros Coffee",
+                "star": "★★★",
+                "sf-Location": "Noe Valley"
+            },
+            {
+                "name": "Réveille",
+                "star": "★★★",
+                "sf-Location": "North Beach"
+            },
+            {
+                "name": "Cup Coffee Bar",
+                "star": "★★★",
+                "sf-Location": "Outer Mission"
+            },
+            {
+                "name": "Garden House Cafe",
+                "star": "★★★",
+                "sf-Location": "Outer Richmond"
+            },
+            {
+                "name": "Andytown Coffee Roasters",
+                "star": "★★★",
+                "sf-Location": "Outer Sunset",
+                "$$hashKey": "object:143"
+            },
+            {
+                "name": "Jane on Fillmore",
+                "star": "★★",
+                "sf-Location": "Pacific Heights",
+                "$$hashKey": "object:174"
+            },
+            {
+                "name": "Saint Frank Coffee",
+                "star": "★★★",
+                "sf-Location": "Polk"
+            },
+            {
+                "name": "Farley’s",
+                "star": "★★★",
+                "sf-Location": "Potrero Hill"
+            },
+            {
+                "name": "House of Snacks",
+                "star": "★★★",
+                "sf-Location": "The Presidio"
+            },
+            {
+                "name": "The Brew",
+                "star": "★★★",
+                "sf-Location": "Russian Hill"
+            },
+            {
+                "name": "Wicked Grounds",
+                "star": "★★★",
+                "sf-Location": "SOMA"
+            },
+            {
+                "name": "farm:table",
+                "star": "★★★",
+                "sf-Location": "Tenderloin"
+            },
+            {
+                "name": "Starbucks",
+                "star": "★",
+                "sf-Location": "Union Square",
+                "$$hashKey": "object:171"
+            },
+            {
+                "name": "Flywheel Coffee Roasters",
+                "star": "★★★★★",
+                "sf-Location": "Upper Haight",
+                "$$hashKey": "object:181"
+            }
+        ],
+        "sortBy": "star",
+        "sortOrder": "dsc",
+        "pagination": {
+            "count": 5,
+            "page": 1,
+            "pages": 7,
+            "size": 34
+        }
+    };
+
+});
 
 phonecatControllers.controller('PhoneDetailCtrl', ['$scope', '$routeParams', 'Phone',
   function($scope, $routeParams, Phone) {

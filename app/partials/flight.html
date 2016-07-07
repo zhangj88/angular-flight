@@ -26,7 +26,7 @@
 </script>
 
 <div ng-controller="CarouselCtrl">
-    <uib-carousel interval="myInterval" no-wrap="noWrapSlides">
+    <uib-carousel active="0" interval="myInterval" no-wrap="noWrapSlides">
         <uib-slide ng-repeat="slide in slides" active="slide.active" index="slide.id">
             <img ng-src="{{slide.image}}" style="margin:auto;">
             <div class="carousel-caption">
@@ -83,18 +83,18 @@
             <div class="col-md-4" ng-controller="DatepickerFromCtrl">
                 <p class="input-group">
                     <span class="input-group-addon" id="basic-addon1">出发时间 :</span>
-                    <input type="text" class="form-control" disabled="disabled" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="status.opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" alt-input-formats="altInputFormats"/>
+                    <input type="text" class="form-control" ng-readonly="true" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="status.opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" alt-input-formats="altInputFormats"/>
                     <span class="input-group-btn">
-                        <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                        <button type="button" class="btn btn-default" ng-click="open()"><i class="glyphicon glyphicon-calendar"></i></button>
                     </span>
                 </p>
             </div>
             <div class="col-md-4" ng-controller="DatepickerBackCtrl" id="DatepickerBackCtrl">
                 <p class="input-group">
                     <span class="input-group-addon" id="basic-addon2">返回时间 :</span>
-                    <input type="text" class="form-control" disabled="disabled" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="status.opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" alt-input-formats="altInputFormats"/>
+                    <input type="text" class="form-control" ng-readonly="true" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="status.opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" alt-input-formats="altInputFormats"/>
                     <span class="input-group-btn">
-                        <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                        <button type="button" class="btn btn-default" ng-click="open()"><i class="glyphicon glyphicon-calendar"></i></button>
                     </span>
                 </p>
             </div>

@@ -6,15 +6,15 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "angular": "^1.4.1",
-    "angular-route": "^1.4.1",
-    "angular-mocks": "^1.4.1",
-    "bootstrap": "3.2.0",
-    "angular-animate": "1.4.x",
-    "angular-sanitize": "1.4.*",
-    "angular-resource": "1.4.x",
-    "jquery": "~2.1.1",
-    "angular-bootstrap": "~0.14.3",
-    "ng-tasty": "~0.6.1"
+    "angular": "latest",
+    "angular-route": "latest",
+    "angular-mocks": "latest",
+    "bootstrap": "latest",
+    "angular-animate": "latest",
+    "angular-sanitize": "latest",
+    "angular-resource": "latest",
+    "jquery": "latest",
+    "angular-bootstrap": "latest",
+    "ng-tasty": "latest"
   }
 }
