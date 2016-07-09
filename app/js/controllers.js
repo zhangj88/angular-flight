@@ -139,8 +139,8 @@ phonecatControllers.controller('ButtonsGoCtrl', function ($scope, $location) {
         } else
             $("#DatepickerFromCtrlTooltip").tooltip('hide');
 
-        if ($scope.alerts.length == 0) {
-//            $location.path("/result");
+        if ($scope.alert == false) {
+            $location.path("/result");
         }
     };
 
@@ -223,12 +223,6 @@ phonecatControllers.controller('DatepickerFromCtrl', function ($scope) {
         $scope.dt = new Date();
     };
 
-    // Disable weekend selection
-    $scope.disabled = function(date, mode) {
-//        return false;
-        return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
-    };
-
     $scope.$watch('dt', function () {
         $scope.$parent.DatepickerFromCtrlSelected = $scope.dt;
     });
@@ -247,7 +241,10 @@ phonecatControllers.controller('DatepickerFromCtrl', function ($scope) {
     };
 
     $scope.dateOptions = {
+        dateDisabled: false,
         formatYear: 'yy',
+        maxDate: new Date(2050, 5, 22),
+        minDate: new Date(),
         startingDay: 1
     };
 
@@ -273,20 +270,17 @@ phonecatControllers.controller('DatepickerBackCtrl', function ($scope) {
     };
 
     // Disable weekend selection
-    $scope.disabled = function(date, mode) {
+    function disabled(data) {
+/*        var date = data.date,
+            mode = data.mode;
+        return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
+        */
         return false;
-//        return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
-    };
+    }
 
     $scope.$watch('dt', function () {
         $scope.$parent.DatepickerBackCtrlSelected = $scope.dt;
     });
-
-    $scope.toggleMin = function() {
-        $scope.minDate = $scope.minDate ? null : new Date();
-    };
-    $scope.toggleMin();
-    $scope.maxDate = new Date(2020, 5, 22);
 
     $scope.open = function() {
         $scope.status.opened = true;
@@ -297,7 +291,10 @@ phonecatControllers.controller('DatepickerBackCtrl', function ($scope) {
     };
 
     $scope.dateOptions = {
+        dateDisabled: disabled,
         formatYear: 'yy',
+        maxDate: new Date(2050, 5, 22),
+        minDate: new Date(),
         startingDay: 1
     };
 
