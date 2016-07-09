@@ -124,15 +124,23 @@ phonecatControllers.controller('ButtonsGoCtrl', function ($scope, $location) {
 
         console.info($scope.DatepickerFromCtrlSelected + "----" + $scope.DatepickerBackCtrlSelected);
 
-        $scope.alerts = [];
+        $scope.alert = false;
         if (($scope.AdultNumberCtrlSelected == 0) && ($scope.ChildNumberCtrlSelected == 0)) {
-            $scope.alerts.push({msg: "人数不能为零!!!"});
+            $scope.alert = true;
+            $("#AdultNumberCtrlTooltip").tooltip('show');
+            $("#ChildNumberCtrlTooltip").tooltip('show');
+        } else {
+            $("#AdultNumberCtrlTooltip").tooltip('hide');
+            $("#ChildNumberCtrlTooltip").tooltip('hide');
         }
         if (($scope.DatepickerFromCtrlSelected > $scope.DatepickerBackCtrlSelected) && $scope.ButtonsSingleCtrlCheckModel == 'round') {
-            $scope.alerts.push({msg: "出发日期早于到达日期!!!"});
-        }
+            $scope.alert = true;
+            $("#DatepickerFromCtrlTooltip").tooltip('show');
+        } else
+            $("#DatepickerFromCtrlTooltip").tooltip('hide');
+
         if ($scope.alerts.length == 0) {
-            $location.path("/result");
+//            $location.path("/result");
         }
     };
 
