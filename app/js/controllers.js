@@ -308,8 +308,46 @@ phonecatControllers.controller('DatepickerBackCtrl', function ($scope) {
 });
 
 
-phonecatControllers.controller('TableCtrl', function($scope) {
+phonecatControllers.controller('TableCtrl', function($scope, $http) {
     $scope.filters = '';
+
+    $scope.resource.rows = [];
+
+    $http({
+        method: 'GET',
+        url: "http://127.0.0.1:3000/flight/research"
+    }).success(function(response) {
+        $scope.resource = {};
+
+        $scope.resource.header = [
+            {
+                "key": "allTime",
+                "name": "allTime",
+                "style": {},
+                "class": []
+            },
+            {
+                "key": "airlineName",
+                "name": "airlineName",
+                "style": {},
+                "class": []
+            },
+            {
+                "key": "classTypeStr",
+                "name": "classTypeStr",
+                "style": {},
+                "class": []
+            }
+        ];
+        $scope.resource.sortBy = "allTime";
+        $scope.resource.sortOrder = "dsc";
+        $scope.resource.rows = response;
+    });
+
+
+
+/*
+
     $scope.resource = {
         "header": [
             {
@@ -529,7 +567,7 @@ phonecatControllers.controller('TableCtrl', function($scope) {
             "size": 34
         }
     };
-
+*/
 });
 
 phonecatControllers.controller('PhoneDetailCtrl', ['$scope', '$routeParams', 'Phone',
