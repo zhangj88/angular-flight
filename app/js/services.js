@@ -9,8 +9,6 @@ phonecatServices.factory('FlightService',
 
       function getPullRequests() {
         var deferred = $q.defer();
-        var promise = deferred.promise;
-        var progress;
 
         $http({
           method: 'GET',
@@ -21,7 +19,7 @@ phonecatServices.factory('FlightService',
           deferred.reject(error);
         });
 
-        return promise;
+        return deferred.promise;
       }
 
       return {

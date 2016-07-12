@@ -305,41 +305,42 @@ phonecatControllers.controller('DatepickerBackCtrl', function ($scope) {
 phonecatControllers.controller('TableCtrl', ["$scope", "FlightService", function($scope, FlightService) {
     $scope.filters = '';
     $scope.resource = {};
-
     $scope.resource.header = [
         {
             "key": "allTime",
-            "name": "allTime",
+            "name": "总时间",
             "style": {},
             "class": []
         },
         {
             "key": "airlineName",
-            "name": "airlineName",
+            "name": "航空公司名",
             "style": {},
             "class": []
         },
         {
             "key": "classTypeStr",
-            "name": "classTypeStr",
+            "name": "舱位",
             "style": {},
             "class": []
         }
     ];
     $scope.resource.sortBy = "allTime";
-    $scope.resource.sortOrder = "dsc";
-//    $scope.resource.rows = [];
+    $scope.resource.sortOrder = "asc";
+    $scope.resource.rows = [];
 
-    $scope.resource.rows = FlightService.getPullRequests().then(function(result){
-//        angular.copy($scope.resource.rows, result);
+    $scope.customTheme = {
+        iconUp: 'fa fa-chevron-circle-up',
+        iconDown: 'fa fa-chevron-circle-down',
+        listItemsPerPage: [10, 20, 50],
+        itemsPerPage: 10,
+        loadOnInit: true
+    };
 
-        return result;
-//        $scope.resource.rows = result;
-
-  //      console.info($scope);
-
+    FlightService.getPullRequests().then(function(result){
+        $scope.resource.rows = result;
     });
 
-    console.info($scope.resource.rows);
+
 
 }]);
