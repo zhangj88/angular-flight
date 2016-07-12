@@ -3,12 +3,6 @@
 /* Controllers */
 var phonecatControllers = angular.module('phonecatControllers', []);
 
-phonecatControllers.controller('PhoneListCtrl', ['$scope', 'Phone',
-  function($scope, Phone) {
-    $scope.phones = Phone.query();
-    $scope.orderProp = 'age';
-  }]);
-
 phonecatControllers.controller('TypeaheadCtrl', function($scope, $http) {
 
     var _selected;
@@ -308,275 +302,44 @@ phonecatControllers.controller('DatepickerBackCtrl', function ($scope) {
 });
 
 
-phonecatControllers.controller('TableCtrl', function($scope, $http) {
+phonecatControllers.controller('TableCtrl', ["$scope", "FlightService", function($scope, FlightService) {
     $scope.filters = '';
+    $scope.resource = {};
 
-    $scope.resource.rows = [];
-
-    $http({
-        method: 'GET',
-        url: "http://127.0.0.1:3000/flight/research"
-    }).success(function(response) {
-        $scope.resource = {};
-
-        $scope.resource.header = [
-            {
-                "key": "allTime",
-                "name": "allTime",
-                "style": {},
-                "class": []
-            },
-            {
-                "key": "airlineName",
-                "name": "airlineName",
-                "style": {},
-                "class": []
-            },
-            {
-                "key": "classTypeStr",
-                "name": "classTypeStr",
-                "style": {},
-                "class": []
-            }
-        ];
-        $scope.resource.sortBy = "allTime";
-        $scope.resource.sortOrder = "dsc";
-        $scope.resource.rows = response;
-    });
-
-
-
-/*
-
-    $scope.resource = {
-        "header": [
-            {
-                "key": "name",
-                "name": "Name",
-                "style": {},
-                "class": []
-            },
-            {
-                "key": "star",
-                "name": "Star",
-                "style": {},
-                "class": []
-            },
-            {
-                "key": "sf-Location",
-                "name": "SF Location",
-                "style": {},
-                "class": []
-            }
-        ],
-        "rows": [
-            {
-                "name": "Ritual Coffee Roasters",
-                "star": "★★★★★",
-                "sf-Location": "Hayes Valley",
-                "$$hashKey": "object:87"
-            },
-            {
-                "name": "Blue Bottle",
-                "star": "★★★★★",
-                "sf-Location": "Hayes Valley",
-                "$$hashKey": "object:88"
-            },
-            {
-                "name": "CoffeeShop",
-                "star": "★★★",
-                "sf-Location": "Bernal Heights",
-                "$$hashKey": "object:89"
-            },
-            {
-                "name": "Spike's Coffee & Teas",
-                "star": "★★★",
-                "sf-Location": "Castro",
-                "$$hashKey": "object:90"
-            },
-            {
-                "name": "La Boulange",
-                "star": "★★",
-                "sf-Location": "Cole Valley",
-                "$$hashKey": "object:91"
-            },
-            {
-                "name": "Dynamo Donut and Coffee",
-                "star": "★★★★★",
-                "sf-Location": "Cow Hollow",
-                "$$hashKey": "object:182"
-            },
-            {
-                "name": "The Mill",
-                "star": "★★★★",
-                "sf-Location": "Divisadero"
-            },
-            {
-                "name": "Piccino Coffee Bar",
-                "star": "★★★",
-                "sf-Location": "Dogpatch"
-            },
-            {
-                "name": "Philz",
-                "star": "★★★",
-                "sf-Location": "Downtown"
-            },
-            {
-                "name": "Duboce Park Cafe",
-                "star": "★★",
-                "sf-Location": "Duboce Triangle",
-                "$$hashKey": "object:173"
-            },
-            {
-                "name": "Blue Bottle",
-                "star": "★★★★★",
-                "sf-Location": "Embarcadero",
-                "$$hashKey": "object:146"
-            },
-            {
-                "name": "Four Barrel",
-                "star": "★★★",
-                "sf-Location": "Excelsior"
-            },
-            {
-                "name": "Coffee Bar",
-                "star": "★★★★★",
-                "sf-Location": "FiDi",
-                "$$hashKey": "object:183"
-            },
-            {
-                "name": "Biscoff Coffee Corner",
-                "star": "★★★",
-                "sf-Location": "Fisherman’s Wharf",
-                "$$hashKey": "object:145"
-            },
-            {
-                "name": "Fifty/Fifty Coffee and Tea",
-                "star": "★★★",
-                "sf-Location": "Inner Richmond"
-            },
-            {
-                "name": "Beanery",
-                "star": "★★★",
-                "sf-Location": "Inner Sunset",
-                "$$hashKey": "object:144"
-            },
-            {
-                "name": "Cafe du Soleil",
-                "star": "★★",
-                "sf-Location": "Lower Haight",
-                "$$hashKey": "object:172"
-            },
-            {
-                "name": "Peet's",
-                "star": "★",
-                "sf-Location": "The Marina",
-                "$$hashKey": "object:170"
-            },
-            {
-                "name": "Sightglass",
-                "star": "★★★★",
-                "sf-Location": "The Mission"
-            },
-            {
-                "name": "Contraband Coffee Bar",
-                "star": "★★★★",
-                "sf-Location": "Nob Hill"
-            },
-            {
-                "name": "Martha & Bros Coffee",
-                "star": "★★★",
-                "sf-Location": "Noe Valley"
-            },
-            {
-                "name": "Réveille",
-                "star": "★★★",
-                "sf-Location": "North Beach"
-            },
-            {
-                "name": "Cup Coffee Bar",
-                "star": "★★★",
-                "sf-Location": "Outer Mission"
-            },
-            {
-                "name": "Garden House Cafe",
-                "star": "★★★",
-                "sf-Location": "Outer Richmond"
-            },
-            {
-                "name": "Andytown Coffee Roasters",
-                "star": "★★★",
-                "sf-Location": "Outer Sunset",
-                "$$hashKey": "object:143"
-            },
-            {
-                "name": "Jane on Fillmore",
-                "star": "★★",
-                "sf-Location": "Pacific Heights",
-                "$$hashKey": "object:174"
-            },
-            {
-                "name": "Saint Frank Coffee",
-                "star": "★★★",
-                "sf-Location": "Polk"
-            },
-            {
-                "name": "Farley’s",
-                "star": "★★★",
-                "sf-Location": "Potrero Hill"
-            },
-            {
-                "name": "House of Snacks",
-                "star": "★★★",
-                "sf-Location": "The Presidio"
-            },
-            {
-                "name": "The Brew",
-                "star": "★★★",
-                "sf-Location": "Russian Hill"
-            },
-            {
-                "name": "Wicked Grounds",
-                "star": "★★★",
-                "sf-Location": "SOMA"
-            },
-            {
-                "name": "farm:table",
-                "star": "★★★",
-                "sf-Location": "Tenderloin"
-            },
-            {
-                "name": "Starbucks",
-                "star": "★",
-                "sf-Location": "Union Square",
-                "$$hashKey": "object:171"
-            },
-            {
-                "name": "Flywheel Coffee Roasters",
-                "star": "★★★★★",
-                "sf-Location": "Upper Haight",
-                "$$hashKey": "object:181"
-            }
-        ],
-        "sortBy": "star",
-        "sortOrder": "dsc",
-        "pagination": {
-            "count": 5,
-            "page": 1,
-            "pages": 7,
-            "size": 34
+    $scope.resource.header = [
+        {
+            "key": "allTime",
+            "name": "allTime",
+            "style": {},
+            "class": []
+        },
+        {
+            "key": "airlineName",
+            "name": "airlineName",
+            "style": {},
+            "class": []
+        },
+        {
+            "key": "classTypeStr",
+            "name": "classTypeStr",
+            "style": {},
+            "class": []
         }
-    };
-*/
-});
+    ];
+    $scope.resource.sortBy = "allTime";
+    $scope.resource.sortOrder = "dsc";
+//    $scope.resource.rows = [];
 
-phonecatControllers.controller('PhoneDetailCtrl', ['$scope', '$routeParams', 'Phone',
-  function($scope, $routeParams, Phone) {
-    $scope.phone = Phone.get({phoneId: $routeParams.phoneId}, function(phone) {
-      $scope.mainImageUrl = phone.images[0];
+    $scope.resource.rows = FlightService.getPullRequests().then(function(result){
+//        angular.copy($scope.resource.rows, result);
+
+        return result;
+//        $scope.resource.rows = result;
+
+  //      console.info($scope);
+
     });
 
-    $scope.setImage = function(imageUrl) {
-      $scope.mainImageUrl = imageUrl;
-    }
-  }]);
+    console.info($scope.resource.rows);
+
+}]);

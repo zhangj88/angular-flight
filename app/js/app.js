@@ -16,20 +16,20 @@ phonecatApp.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.
         when('/flight', {
-            templateUrl: 'partials/flight.html',
-            controller: 'PhoneListCtrl'
+            templateUrl: 'partials/flight.html'
+//            , controller: 'PhoneListCtrl'
         }).
         when('/about', {
-            templateUrl: 'partials/about.html',
-            controller: 'PhoneListCtrl'
+            templateUrl: 'partials/about.html'
+//            , controller: 'PhoneListCtrl'
         }).
         when('/result', {
-            templateUrl: 'partials/result.html',
-            controller: 'PhoneListCtrl'
+            templateUrl: 'partials/result.html'
+//            , controller: 'PhoneListCtrl'
         }).
       when('/phones/:phoneId', {
-        templateUrl: 'partials/phone-detail.html',
-        controller: 'PhoneDetailCtrl'
+        templateUrl: 'partials/phone-detail.html'
+//            , controller: 'PhoneDetailCtrl'
       }).
       otherwise({
         redirectTo: '/flight'
