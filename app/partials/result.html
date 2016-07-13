@@ -12,8 +12,13 @@
     <li>机场税 : {{row.flightIntlPolicys[0].tax }}¥</li>
 </script>
 
-<div class="container" ng-controller="TableCtrl">
-    <div class="col-md-12" tasty-table bind-resource="resource" watch-resource="collection" bind-theme="customTheme">
+<div class="container" ng-controller="TableCtrl" >
+    <div class="col-md-12" ng-show="!loadFinished">
+        <div class="col-md-5"/>
+        <img class="col-md-2" ng-src="img/loading.gif">
+        <div class="col-md-5"/>
+    </div>
+    <div class="col-md-12" tasty-table bind-resource="resource" watch-resource="collection" bind-theme="customTheme" ng-show="loadFinished">
         <table class="table table-striped table-condensed">
             <thead tasty-thead></thead>
             <tbody>

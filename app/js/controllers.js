@@ -111,9 +111,6 @@ phonecatControllers.controller('ButtonsGoCtrl', function ($scope, $location, Fli
 
 
     $scope.addAlert = function() {
-        console.info($scope.ButtonsEcoCtrlCheckModel + $scope.ButtonsDirectCtrlCheckModel + $scope.ButtonsSingleCtrlCheckModel);
-
-        console.info($scope.DatepickerFromCtrlSelected + "----" + $scope.DatepickerBackCtrlSelected);
 
         $scope.alert = false;
         if (($scope.AdultNumberCtrlSelected == 0) && ($scope.ChildNumberCtrlSelected == 0)) {
@@ -308,6 +305,7 @@ phonecatControllers.controller('DatepickerBackCtrl', function ($scope) {
 
 
 phonecatControllers.controller('TableCtrl', ["$scope", "FlightService", function($scope, FlightService) {
+    $scope.loadFinished = false;
     $scope.filters = '';
     $scope.resource = {};
     $scope.resource.header = [
@@ -374,6 +372,7 @@ phonecatControllers.controller('TableCtrl', ["$scope", "FlightService", function
 
     FlightService.getFlightRequests().then(function(result){
         $scope.resource.rows = result;
+        $scope.loadFinished = true;
     });
 
 
