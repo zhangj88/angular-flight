@@ -46,8 +46,8 @@
             <div class="col-md-2" ng-controller="ButtonsDirectCtrl">
                 <p>
                 <div class="btn-group">
-                    <label class="btn btn-default" ng-model="radioModel" uib-btn-radio="'direct'" uncheckable>直飞</label>
-                    <label class="btn btn-default" ng-model="radioModel" uib-btn-radio="'transfer'" uncheckable>转机</label>
+                    <label class="btn btn-default" ng-model="radioModel" uib-btn-radio="'on'" uncheckable>直飞</label>
+                    <label class="btn btn-default" ng-model="radioModel" uib-btn-radio="'off'" uncheckable>转机</label>
                 </div>
                 </p>
             </div>
@@ -62,20 +62,16 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-4" ng-controller="TypeaheadCtrl">
+            <div class="col-md-4" ng-controller="TypeaheadFromCtrl">
                 <p class="input-group">
-                    <span class="input-group-addon" id="basic-addon3">出发地 :</span>
-<!--                    <input type="text" ng-model="customPopupSelected" placeholder="请选择机场" uib-typeahead="state as state.name for state in statesWithFlags | filter:{name:$viewValue}" typeahead-popup-template-url="customPopupTemplate.html" class="form-control">
-                    -->
-                    <input ng-readonly="true" type="text" ng-model="customPopupSelected" placeholder="巴黎" uib-typeahead="state as state.name for state in statesWithFlags | filter:{name:$viewValue}" typeahead-popup-template-url="customPopupTemplate.html" class="form-control">
+                    <span id="TypeaheadFromCtrlTooltip" type="text" data-toggle="tooltip" title="正确输入城市名!!!" data-placement="bottom" data-trigger="manual" class="input-group-addon" id="basic-addon3">出发地 :</span>
+                    <input type="text" typeahead-select-on-blur=true ng-model="customPopupSelected" placeholder="请选择机场" uib-typeahead="state as state.name for state in statesWithFlags | filter:{name:$viewValue}" typeahead-popup-template-url="customPopupTemplate.html" class="form-control">
                 </p>
             </div>
-            <div class="col-md-4" ng-controller="TypeaheadCtrl">
+            <div class="col-md-4" ng-controller="TypeaheadToCtrl">
                 <p class="input-group">
-                    <span  class="input-group-addon" id="basic-addon4">目的地 :</span>
-<!--                    <input type="text" ng-model="customPopupSelected" placeholder="请选择机场" uib-typeahead="state as state.name for state in statesWithFlags | filter:{name:$viewValue}" typeahead-popup-template-url="customPopupTemplate.html" class="form-control">
--->
-                    <input ng-readonly="true" type="text" ng-model="customPopupSelected" placeholder="上海" uib-typeahead="state as state.name for state in statesWithFlags | filter:{name:$viewValue}" typeahead-popup-template-url="customPopupTemplate.html" class="form-control">
+                    <span id="TypeaheadToCtrlTooltip" type="text" data-toggle="tooltip" title="正确输入城市名!!!" data-placement="bottom" data-trigger="manual" class="input-group-addon" id="basic-addon4">目的地 :</span>
+                    <input type="text" typeahead-select-on-blur=true ng-model="customPopupSelected" placeholder="请选择机场" uib-typeahead="state as state.name for state in statesWithFlags | filter:{name:$viewValue}" typeahead-popup-template-url="customPopupTemplate.html" class="form-control">
                 </p>
             </div>
         </div>

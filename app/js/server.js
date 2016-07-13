@@ -17,7 +17,7 @@ app.get('/flight/research', function(req, res) {
         "FlightWay=" + req.query.flightway + "&DSeatClass=" + req.query.seatclass + "&DSeatSelect=" + req.query.seatclass + "&ChildType=ADT&Quantity=" + req.query.adult +
         "&ChildQty=" + req.query.child + "&BabyQty=0&AirlineChoice=&HomePortCode=&Dest1PortCode=&CurrentSeqNO=1&DCity=" + req.query.dcity + "&ACity=" + req.query.acity + "&" +
         "DDatePeriod1=" + req.query.ddate + "&ADatePeriod1=" + req.query.adate + "&sort=PRICE&filter_ddate=%40&filter_adate=%40&ptype=ADT&Transfer_Type=-1&" +
-        "pageno=1&PartitionSearchToken=1&TransNo=20160711174016477&RouteToken=&ABTesting=M%3A31%2C160325_enf_aruii%3AB%3B&SubChannel=0"
+        "pageno=1&PartitionSearchToken=1&TransNo=20160711174016477&RouteToken=&ABTesting=M%3A31%2C160325_enf_aruii%3AB%3B&SubChannel=0&NonstopOnly=" + req.query.nonstoponly
     }, function (error, response, body) {
         if (!error && response.statusCode == 200) {
             // from within the callback, write data to response, essentially returning it.
