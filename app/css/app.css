@@ -33,7 +33,9 @@ footer {
     box-shadow: none;
 }
 
-
+.popover {
+    max-width: 400px;
+}
 
 .phone-images {
   background-color: white;

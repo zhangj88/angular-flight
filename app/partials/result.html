@@ -1,12 +1,31 @@
+<script type="text/ng-template" id="PopoverTemplate.html">
+    <div ng-repeat="detail in row.flightIntlDetails">
+        <div>起飞机场 {{detail.departureAirportName}}</div>
+        <div>到达机场 {{detail.arrivalAirportName}}</div>
+        <div>起飞时间 {{detail.departureTimeWMMDD}} {{detail.departureTimeStr}}</div>
+        <div>降落时间 {{detail.arrivalTimeWMMDD}} {{detail.arrivalTimeStr}}</div>
+        <div>机型 {{detail.category}}, 编号 {{detail.flightNo}}</div>
+        <div>航空公司 {{detail.airline}}</div>
+        <hr>
+    </div>
+    <li>机票价格 : {{row.flightIntlPolicys[0].price }}¥</li>
+    <li>机场税 : {{row.flightIntlPolicys[0].tax }}¥</li>
+</script>
+
 <div class="container" ng-controller="TableCtrl">
     <div class="col-md-12" tasty-table bind-resource="resource" watch-resource="collection" bind-theme="customTheme">
         <table class="table table-striped table-condensed">
             <thead tasty-thead></thead>
             <tbody>
             <tr ng-repeat="row in rows">
+                <td>{{ row.departureTimeStr }}</td>
+                <td>{{ row.arrivalTimeStr }}</td>
                 <td>{{ row.allTime }}</td>
+                <td>{{ row.flightIntlPolicys[0].totalPriceCNY }}</td>
                 <td>{{ row.airlineName }}</td>
                 <td>{{ row.classTypeStr }}</td>
+                <td>{{ row.stopType }}</td>
+                <td uib-popover-template="'PopoverTemplate.html'" popover-trigger="mouseenter" popover-append-to-body="true" popover-placement="bottom-right">详情</td>
             </tr>
             </tbody>
         </table>

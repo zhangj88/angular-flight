@@ -100,15 +100,12 @@ phonecatControllers.controller('ChildNumberCtrl', function ($scope) {
 
 });
 
-phonecatControllers.controller('ButtonsGoCtrl', function ($scope, $location) {
-    $scope.alerts = [
-    ];
-
+phonecatControllers.controller('ButtonsGoCtrl', function ($scope, $location, FlightService) {
     $scope.AdultNumberCtrlSelected = 0;
     $scope.ChildNumberCtrlSelected = 0;
-    $scope.ButtonsEcoCtrlCheckModel = 'economy';
+    $scope.ButtonsEcoCtrlCheckModel = 'Y';
     $scope.ButtonsDirectCtrlCheckModel = 'direct';
-    $scope.ButtonsSingleCtrlCheckModel = 'round';
+    $scope.ButtonsSingleCtrlCheckModel = 'RT';
     $scope.DatepickerFromCtrlSelected = new Date();
     $scope.DatepickerBackCtrlSelected = new Date();
 
@@ -133,6 +130,17 @@ phonecatControllers.controller('ButtonsGoCtrl', function ($scope, $location) {
         } else
             $("#DatepickerFromCtrlTooltip").tooltip('hide');
 
+        var param = {};
+        param.ddate = $scope.DatepickerFromCtrlSelected;
+        param.adate = $scope.DatepickerBackCtrlSelected;
+        param.dcity = "PAR";
+        param.acity = "SHA";
+        param.flightway = $scope.ButtonsSingleCtrlCheckModel;
+        param.seatclass = $scope.ButtonsEcoCtrlCheckModel;
+        param.adult = $scope.AdultNumberCtrlSelected;
+        param.child = $scope.ChildNumberCtrlSelected;
+        FlightService.setData(param);
+
         if ($scope.alert == false) {
             $location.path("/result");
         }
@@ -140,13 +148,10 @@ phonecatControllers.controller('ButtonsGoCtrl', function ($scope, $location) {
 
     $scope.$watch('ButtonsSingleCtrlCheckModel', function () {
         var div = document.getElementById('DatepickerBackCtrl');
-        if ($scope.ButtonsSingleCtrlCheckModel == 'round') div.style.visibility = 'visible';
+        if ($scope.ButtonsSingleCtrlCheckModel == 'RT') div.style.visibility = 'visible';
         else div.style.visibility = 'hidden';
     });
 
-    $scope.closeAlert = function(index) {
-        $scope.alerts.splice(index, 1);
-    };
 });
 
 phonecatControllers.controller('CarouselCtrl', function ($scope) {
@@ -307,8 +312,26 @@ phonecatControllers.controller('TableCtrl', ["$scope", "FlightService", function
     $scope.resource = {};
     $scope.resource.header = [
         {
+            "key": "departureTimeStr",
+            "name": "出发时间",
+            "style": {},
+            "class": []
+        },
+        {
+            "key": "arrivalTimeStr",
+            "name": "到达时间",
+            "style": {},
+            "class": []
+        },
+        {
             "key": "allTime",
             "name": "总时间",
+            "style": {},
+            "class": []
+        },
+        {
+            "key": "price",
+            "name": "总价格(人民币)",
             "style": {},
             "class": []
         },
@@ -323,9 +346,21 @@ phonecatControllers.controller('TableCtrl', ["$scope", "FlightService", function
             "name": "舱位",
             "style": {},
             "class": []
+        },
+        {
+            "key": "stop",
+            "name": "转飞次数",
+            "style": {},
+            "class": []
+        },
+        {
+            "key": "detail",
+            "name": "详情",
+            "style": {},
+            "class": []
         }
     ];
-    $scope.resource.sortBy = "allTime";
+    $scope.resource.sortBy = "price";
     $scope.resource.sortOrder = "asc";
     $scope.resource.rows = [];
 
@@ -337,7 +372,7 @@ phonecatControllers.controller('TableCtrl', ["$scope", "FlightService", function
         loadOnInit: true
     };
 
-    FlightService.getPullRequests().then(function(result){
+    FlightService.getFlightRequests().then(function(result){
         $scope.resource.rows = result;
     });
 
