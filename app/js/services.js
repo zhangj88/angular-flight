@@ -28,7 +28,7 @@ phonecatServices.factory('FlightService',
 
             $http({
                 method: 'GET',
-                url: "http://127.0.0.1:3000/flight/research?ddate=" + formatDate(param.ddate) + "&adate=" + formatDate(param.adate) +
+                url: "http://localhost:3000/flight/research?ddate=" + formatDate(param.ddate) + "&adate=" + formatDate(param.adate) +
                 "&dcity=" + param.dcity.flag + "&acity=" + param.acity.flag + "&flightway=" + param.flightway + "&seatclass=" + param.seatclass +
                 "&adult=" + param.adult + "&child=" + param.child + "&nonstoponly=" + param.nonstoponly
             }).success(function (response) {
