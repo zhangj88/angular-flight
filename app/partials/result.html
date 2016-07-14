@@ -13,27 +13,40 @@
 </script>
 
 <div class="container" ng-controller="TableCtrl" >
-    <div class="col-md-12" ng-show="!loadFinished">
-        <div class="col-md-2"/>
-        <img class="col-md-8" ng-src="img/loading.gif">
-        <div class="col-md-2"/>
+    <div class="row">
+        <p class="input-group col-md-12">
+            <span class="input-group-addon">
+                {{param.direction}}机票: 从<strong>{{param.dcity.name}}</strong> 到 <strong>{{param.acity.name}}</strong>
+                {{param.direction}}日期 <strong>{{param.ddate.toISOString().slice(0,10)}}</strong>
+            </span>
+            <a type="button" class="btn btn-default" ng-click="returnFlight()" ng-show="param.flightway == 'RT' && param.direction == '出发' && loadFinished">
+                查询返回机票
+            </a>
+        </p>
     </div>
-    <div class="col-md-12" tasty-table bind-resource="resource" watch-resource="collection" bind-theme="customTheme" ng-show="loadFinished">
-        <table class="table table-striped table-condensed">
-            <thead tasty-thead></thead>
-            <tbody>
-            <tr ng-repeat="row in rows">
-                <td>{{ row.departureTimeStr }}</td>
-                <td>{{ row.arrivalTimeStr }}</td>
-                <td>{{ row.allTime }}</td>
-                <td>{{ row.flightIntlPolicys[0].totalPriceCNY }}</td>
-                <td>{{ row.airlineName }}</td>
-                <td>{{ row.classTypeStr }}</td>
-                <td>{{ row.stopType }}</td>
-                <td uib-popover-template="'PopoverTemplate.html'" popover-trigger="mouseenter" popover-append-to-body="true" popover-placement="bottom-right">详情</td>
-            </tr>
-            </tbody>
-        </table>
-        <div tasty-pagination></div>
+    <div class="row">
+        <div class="col-md-12" ng-show="!loadFinished">
+            <div class="col-md-2"/>
+            <img class="col-md-8" ng-src="img/loading.gif">
+            <div class="col-md-2"/>
+        </div>
+        <div class="col-md-12" tasty-table bind-resource="resource" watch-resource="collection" bind-theme="customTheme" ng-show="loadFinished">
+            <table class="table table-striped table-condensed">
+                <thead tasty-thead></thead>
+                <tbody>
+                <tr ng-repeat="row in rows">
+                    <td>{{ row.departureTimeStr }}</td>
+                    <td>{{ row.arrivalTimeStr }}</td>
+                    <td>{{ row.allTime }}</td>
+                    <td>{{ row.flightIntlPolicys[0].totalPriceCNY }}</td>
+                    <td>{{ row.airlineName }}</td>
+                    <td>{{ row.classTypeStr }}</td>
+                    <td>{{ row.stopType == 0 ? "直飞" : "转机" }}</td>
+                    <td uib-popover-template="'PopoverTemplate.html'" popover-trigger="mouseenter" popover-append-to-body="true" popover-placement="bottom-right">详情</td>
+                </tr>
+                </tbody>
+            </table>
+            <div tasty-pagination></div>
+        </div>
     </div>
 </div>

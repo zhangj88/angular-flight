@@ -156,8 +156,8 @@ phonecatControllers.controller('ButtonsGoCtrl', function ($scope, $location, Fli
             var param = {};
             param.ddate = $scope.DatepickerFromCtrlSelected;
             param.adate = $scope.DatepickerBackCtrlSelected;
-            param.dcity = $scope.customPopupFromSelected.flag;
-            param.acity = $scope.customPopupToSelected.flag;
+            param.dcity = $scope.customPopupFromSelected;
+            param.acity = $scope.customPopupToSelected;
             param.flightway = $scope.ButtonsSingleCtrlCheckModel;
             param.seatclass = $scope.ButtonsEcoCtrlCheckModel;
             param.adult = $scope.AdultNumberCtrlSelected;
@@ -330,7 +330,7 @@ phonecatControllers.controller('DatepickerBackCtrl', function ($scope) {
 });
 
 
-phonecatControllers.controller('TableCtrl', ["$scope", "FlightService", function($scope, FlightService) {
+phonecatControllers.controller('TableCtrl', function($scope, FlightService,  $window) {
     $scope.loadFinished = false;
     $scope.filters = '';
     $scope.resource = {};
@@ -373,7 +373,7 @@ phonecatControllers.controller('TableCtrl', ["$scope", "FlightService", function
         },
         {
             "key": "stop",
-            "name": "转飞次数",
+            "name": "直飞/转机",
             "style": {},
             "class": []
         },
@@ -384,8 +384,7 @@ phonecatControllers.controller('TableCtrl', ["$scope", "FlightService", function
             "class": []
         }
     ];
-//    $scope.resource.sortBy = "price";
-//    $scope.resource.sortOrder = "asc";
+
     $scope.resource.rows = [];
 
     $scope.customTheme = {
@@ -396,11 +395,26 @@ phonecatControllers.controller('TableCtrl', ["$scope", "FlightService", function
         loadOnInit: true
     };
 
+    $scope.param = FlightService.getData();
+    $scope.param.direction = "出发";
     FlightService.getFlightRequests().then(function(result){
         $scope.resource.rows = result;
         $scope.loadFinished = true;
     });
 
+    $scope.returnFlight = function() {
+        $scope.param.direction = "返回";
+        var tmp = $scope.param.dcity;
+        $scope.param.dcity = $scope.param.acity;
+        $scope.param.acity = tmp;
+        $scope.param.ddate = $scope.param.adate;
+        FlightService.setData($scope.param);
+        $scope.loadFinished = false;
+        FlightService.getFlightRequests().then(function(result){
+            $scope.resource.rows = result;
+            $scope.loadFinished = true;
+        });
+    };
 
 
-}]);
+});
