@@ -2,17 +2,17 @@
 
 /* App Module */
 
-var phonecatApp = angular.module('phonecatApp', [
+var flightApp = angular.module('flightApp', [
     'ngRoute',
     'ui.bootstrap',
     'ngTasty',
-    'phonecatAnimations',
-    'phonecatControllers',
-    'phonecatFilters',
-    'phonecatServices'
+    'flightAnimations',
+    'flightControllers',
+    'flightFilters',
+    'flightServices'
 ]);
 
-phonecatApp.config(['$routeProvider',
+flightApp.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.
         when('/flight', {

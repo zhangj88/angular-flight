@@ -2,9 +2,9 @@
 
 /* Services */
 
-var phonecatServices = angular.module('phonecatServices', ['ngResource']);
+var flightServices = angular.module('flightServices', ['ngResource']);
 
-phonecatServices.factory('FlightService',
+flightServices.factory('FlightService',
     function($q, $http){
         var param = {}
 
@@ -56,7 +56,7 @@ phonecatServices.factory('FlightService',
 
     });
 
-phonecatServices.factory('IATAService',
+flightServices.factory('IATAService',
     function(){
         function getIATAJson() {
             return [{'name':'安徽省 安庆 天柱山机场','flag':'AQG'},

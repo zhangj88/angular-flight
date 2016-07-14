@@ -1,9 +1,9 @@
 'use strict';
 
 /* Controllers */
-var phonecatControllers = angular.module('phonecatControllers', []);
+var flightControllers = angular.module('flightControllers', []);
 
-phonecatControllers.controller('TypeaheadFromCtrl', function($scope, $http, IATAService) {
+flightControllers.controller('TypeaheadFromCtrl', function($scope, $http, IATAService) {
 
     $scope.selected = undefined;
     $scope.statesWithFlags = IATAService.getIATAJson();
@@ -27,7 +27,7 @@ phonecatControllers.controller('TypeaheadFromCtrl', function($scope, $http, IATA
 
 });
 
-phonecatControllers.controller('TypeaheadToCtrl', function($scope, $http, IATAService) {
+flightControllers.controller('TypeaheadToCtrl', function($scope, $http, IATAService) {
 
     $scope.selected = undefined;
     $scope.statesWithFlags = IATAService.getIATAJson();
@@ -50,27 +50,27 @@ phonecatControllers.controller('TypeaheadToCtrl', function($scope, $http, IATASe
     };
 });
 
-phonecatControllers.controller('ButtonsSingleCtrl', function ($scope) {
+flightControllers.controller('ButtonsSingleCtrl', function ($scope) {
     $scope.radioModel = $scope.$parent.ButtonsSingleCtrlCheckModel;
     $scope.$watch('radioModel', function () {
         $scope.$parent.ButtonsSingleCtrlCheckModel = $scope.radioModel;
     });
 });
-phonecatControllers.controller('ButtonsDirectCtrl', function ($scope) {
+flightControllers.controller('ButtonsDirectCtrl', function ($scope) {
     $scope.radioModel = $scope.$parent.ButtonsDirectCtrlCheckModel;
     $scope.$watch('radioModel', function () {
         $scope.$parent.ButtonsDirectCtrlCheckModel = $scope.radioModel;
     });
 
 });
-phonecatControllers.controller('ButtonsEcoCtrl', function ($scope) {
+flightControllers.controller('ButtonsEcoCtrl', function ($scope) {
     $scope.radioModel = $scope.$parent.ButtonsEcoCtrlCheckModel;
     $scope.$watch('radioModel', function () {
         $scope.$parent.ButtonsEcoCtrlCheckModel = $scope.radioModel;
     });
 });
 
-phonecatControllers.controller('AdultNumberCtrl', function ($scope) {
+flightControllers.controller('AdultNumberCtrl', function ($scope) {
     $scope.number = {
         options: [
             0,
@@ -89,7 +89,7 @@ phonecatControllers.controller('AdultNumberCtrl', function ($scope) {
 
 });
 
-phonecatControllers.controller('ChildNumberCtrl', function ($scope) {
+flightControllers.controller('ChildNumberCtrl', function ($scope) {
     $scope.number = {
         options: [
             0,
@@ -108,7 +108,7 @@ phonecatControllers.controller('ChildNumberCtrl', function ($scope) {
 
 });
 
-phonecatControllers.controller('ButtonsGoCtrl', function ($scope, $location, FlightService) {
+flightControllers.controller('ButtonsGoCtrl', function ($scope, $location, FlightService) {
     $scope.AdultNumberCtrlSelected = 0;
     $scope.ChildNumberCtrlSelected = 0;
     $scope.ButtonsEcoCtrlCheckModel = 'Y';
@@ -177,7 +177,7 @@ phonecatControllers.controller('ButtonsGoCtrl', function ($scope, $location, Fli
 
 });
 
-phonecatControllers.controller('CarouselCtrl', function ($scope) {
+flightControllers.controller('CarouselCtrl', function ($scope) {
     $scope.myInterval = 5000;
     $scope.noWrapSlides = false;
     var slides = $scope.slides = [];
@@ -235,7 +235,7 @@ phonecatControllers.controller('CarouselCtrl', function ($scope) {
     }
 });
 
-phonecatControllers.controller('DatepickerFromCtrl', function ($scope) {
+flightControllers.controller('DatepickerFromCtrl', function ($scope) {
     $scope.today = function() {
         $scope.dt = new Date();
     };
@@ -281,7 +281,7 @@ phonecatControllers.controller('DatepickerFromCtrl', function ($scope) {
 
 });
 
-phonecatControllers.controller('DatepickerBackCtrl', function ($scope) {
+flightControllers.controller('DatepickerBackCtrl', function ($scope) {
     $scope.today = function() {
         $scope.dt = new Date();
     };
@@ -330,7 +330,7 @@ phonecatControllers.controller('DatepickerBackCtrl', function ($scope) {
 });
 
 
-phonecatControllers.controller('TableCtrl', function($scope, FlightService,  $window) {
+flightControllers.controller('TableCtrl', function($scope, FlightService,  $window) {
     $scope.loadFinished = false;
     $scope.filters = '';
     $scope.resource = {};
