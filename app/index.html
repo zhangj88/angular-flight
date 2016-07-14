@@ -36,10 +36,10 @@
             </button>
             <a class="navbar-brand" href="#flight">国际航班机票查询</a>
         </div>
-        <div id="navbar" class="collapse navbar-collapse">
+        <div id="navbar" class="collapse navbar-collapse" ng-controller="HeaderCtrl">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#flight">主页</a></li>
-                <li><a href="#about">关于</a></li>
+                <li ng-class="{ active: isActive('/flight')}"><a href="#flight">主页</a></li>
+                <li ng-class="{ active: isActive('/about')}"><a href="#about">关于</a></li>
             </ul>
         </div>
     </div>

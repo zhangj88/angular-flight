@@ -3,6 +3,12 @@
 /* Controllers */
 var flightControllers = angular.module('flightControllers', []);
 
+flightControllers.controller('HeaderCtrl', function ($scope, $location) {
+    $scope.isActive = function (viewLocation) {
+        return viewLocation === $location.path();
+    };
+});
+
 flightControllers.controller('TypeaheadFromCtrl', function($scope, $http, IATAService) {
 
     $scope.selected = undefined;
