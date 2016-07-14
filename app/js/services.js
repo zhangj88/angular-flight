@@ -22,7 +22,7 @@ flightServices.factory('FlightService',
 
         function getFlightRequests() {
             var deferred = $q.defer();
-            console.info("http://127.0.0.1:3000/flight/research?ddate=" + formatDate(param.ddate) + "&adate=" + formatDate(param.adate) +
+            console.info("http://94.23.63.229:3000/flight/research?ddate=" + formatDate(param.ddate) + "&adate=" + formatDate(param.adate) +
             "&dcity=" + param.dcity.flag + "&acity=" + param.acity.flag + "&flightway=" + param.flightway + "&seatclass=" + param.seatclass +
             "&adult=" + param.adult + "&child=" + param.child + "&nonstoponly=" + param.nonstoponly);
 
