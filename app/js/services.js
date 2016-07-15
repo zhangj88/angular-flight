@@ -28,7 +28,7 @@ flightServices.factory('FlightService',
 
             $http({
                 method: 'GET',
-                url: "http://vps299329.ovh.net:3000/flight/research?ddate=" + formatDate(param.ddate) + "&adate=" + formatDate(param.adate) +
+                url: "http://51.254.203.74:3000/flight/research?ddate=" + formatDate(param.ddate) + "&adate=" + formatDate(param.adate) +
                 "&dcity=" + param.dcity.flag + "&acity=" + param.acity.flag + "&flightway=" + param.flightway + "&seatclass=" + param.seatclass +
                 "&adult=" + param.adult + "&child=" + param.child + "&nonstoponly=" + param.nonstoponly
             }).success(function (response) {
