@@ -418,6 +418,8 @@ flightControllers.controller('TableCtrl', function($scope, FlightService, $locat
         $scope.param.dcity = $scope.param.acity;
         $scope.param.acity = tmp;
         $scope.param.ddate.setDate($scope.param.adate.getDate());
+        $scope.param.ddate.setMonth($scope.param.adate.getMonth());
+        $scope.param.ddate.setFullYear($scope.param.adate.getFullYear());
         $scope.param.adate.setDate($scope.param.adate.getDate()+5);
         FlightService.setData($scope.param);
         $scope.loadFinished = false;
