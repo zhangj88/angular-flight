@@ -336,7 +336,7 @@ flightControllers.controller('DatepickerBackCtrl', function ($scope) {
 });
 
 
-flightControllers.controller('TableCtrl', function($scope, FlightService,  $window) {
+flightControllers.controller('TableCtrl', function($scope, FlightService, $location) {
     $scope.loadFinished = false;
     $scope.filters = '';
     $scope.resource = {};
@@ -403,6 +403,10 @@ flightControllers.controller('TableCtrl', function($scope, FlightService,  $wind
 
     $scope.param = FlightService.getData();
     $scope.param.direction = "出发";
+
+    console.info("ddd");
+    if (!($scope)) $location.path("flight");
+
     FlightService.getFlightRequests().then(function(result){
         $scope.resource.rows = result;
         $scope.loadFinished = true;
@@ -414,6 +418,7 @@ flightControllers.controller('TableCtrl', function($scope, FlightService,  $wind
         $scope.param.dcity = $scope.param.acity;
         $scope.param.acity = tmp;
         $scope.param.ddate = $scope.param.adate;
+        $scope.param.adate.setDate($scope.param.adate.getDate()+5);
         FlightService.setData($scope.param);
         $scope.loadFinished = false;
         FlightService.getFlightRequests().then(function(result){
