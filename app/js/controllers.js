@@ -404,8 +404,7 @@ flightControllers.controller('TableCtrl', function($scope, FlightService, $locat
     $scope.param = FlightService.getData();
     $scope.param.direction = "出发";
 
-    console.info("ddd");
-    if (!($scope)) $location.path("flight");
+    if (!($scope.param.dcity)) $location.path("flight");
 
     FlightService.getFlightRequests().then(function(result){
         $scope.resource.rows = result;
