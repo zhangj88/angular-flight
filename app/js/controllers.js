@@ -417,8 +417,9 @@ flightControllers.controller('TableCtrl', function($scope, FlightService, $locat
         var tmp = $scope.param.dcity;
         $scope.param.dcity = $scope.param.acity;
         $scope.param.acity = tmp;
+        var tmpdate = $scope.param.adate;
         $scope.param.ddate = $scope.param.adate;
-        $scope.param.adate.setDate($scope.param.adate.getDate()+5);
+        $scope.param.adate.setDate(tmpdate.getDate()+5);
         FlightService.setData($scope.param);
         $scope.loadFinished = false;
         FlightService.getFlightRequests().then(function(result){
