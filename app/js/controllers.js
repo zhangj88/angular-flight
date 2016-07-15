@@ -192,7 +192,7 @@ flightControllers.controller('CarouselCtrl', function ($scope) {
     $scope.addSlide = function() {
         var newWidth = 600 + slides.length + 1;
         slides.push({
-            image: 'img/' + currIndex + '.jpg',
+            image: 'app/img/' + currIndex + '.jpg',
             text: ['More','Extra','Lots of','Surplus'][slides.length % 4] + ' ' +
             ['Cats', 'Kittys', 'Felines', 'Cutes'][slides.length % 4],
             id: currIndex++

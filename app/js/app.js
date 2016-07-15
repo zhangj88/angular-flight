@@ -16,13 +16,13 @@ flightApp.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.
         when('/flight', {
-            templateUrl: 'partials/flight.html'
+            templateUrl: 'app/partials/flight.html'
         }).
         when('/about', {
-            templateUrl: 'partials/about.html'
+            templateUrl: 'app/partials/about.html'
         }).
         when('/result', {
-            templateUrl: 'partials/result.html'
+            templateUrl: 'app/partials/result.html'
         }).
       otherwise({
         redirectTo: '/flight'
