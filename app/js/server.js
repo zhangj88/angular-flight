@@ -26,8 +26,20 @@ app.get('/flight/research', function(req, res) {
     })
 
 });
-app.get('/wines', function(req, res) {
-    res.send({id:req.query.id, name: "The Name", description: "description"});
+
+app.get('/chat', function(req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+
+    request.get({
+        headers: {'content-type' : 'application/x-www-form-urlencoded; charset=utf-8'},
+        url:     'http://www.tuling123.com/openapi/api?key=d4d223bfd1e3f4767d3ad5631a85a89b&info=' + encodeURI(req.query.info) + '&userid=' + req.query.session
+    }, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            res.send(JSON.parse(body));
+        }
+    })
+
 });
 
 app.listen(3000);
