@@ -11,7 +11,7 @@ gulp.task('css', function() {
         .pipe(gulp.dest('./app/css/min'));
 });
 gulp.task('js', function() {
-    gulp.src('./app/js/*.js')
+    gulp.src(['./app/js/*.js', './app/bower_components/bootstrap/js/tooltip.js'])
         .pipe(uglify())
         .pipe(concat('app.min.js'))
         .pipe(gulp.dest('./app/js/min'));
