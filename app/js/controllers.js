@@ -3,13 +3,13 @@
 /* Controllers */
 var flightControllers = angular.module('flightControllers', []);
 
-flightControllers.controller('HeaderCtrl', function ($scope, $location) {
+flightControllers.controller('HeaderCtrl', ['$scope','$location', function ($scope, $location) {
     $scope.isActive = function (viewLocation) {
         return viewLocation === $location.path();
     };
-});
+}]);
 
-flightControllers.controller('TypeaheadFromCtrl', function($scope, $http, IATAService) {
+flightControllers.controller('TypeaheadFromCtrl', ['$scope', '$http', 'IATAService', function($scope, $http, IATAService) {
 
     $scope.selected = undefined;
     $scope.statesWithFlags = IATAService.getIATAJson();
@@ -31,9 +31,9 @@ flightControllers.controller('TypeaheadFromCtrl', function($scope, $http, IATASe
         getterSetter: true
     };
 
-});
+}]);
 
-flightControllers.controller('TypeaheadToCtrl', function($scope, $http, IATAService) {
+flightControllers.controller('TypeaheadToCtrl', ['$scope', '$http', 'IATAService', function($scope, $http, IATAService) {
 
     $scope.selected = undefined;
     $scope.statesWithFlags = IATAService.getIATAJson();
@@ -54,29 +54,29 @@ flightControllers.controller('TypeaheadToCtrl', function($scope, $http, IATAServ
         },
         getterSetter: true
     };
-});
+}]);
 
-flightControllers.controller('ButtonsSingleCtrl', function ($scope) {
+flightControllers.controller('ButtonsSingleCtrl', ['$scope', function ($scope) {
     $scope.radioModel = $scope.$parent.ButtonsSingleCtrlCheckModel;
     $scope.$watch('radioModel', function () {
         $scope.$parent.ButtonsSingleCtrlCheckModel = $scope.radioModel;
     });
-});
-flightControllers.controller('ButtonsDirectCtrl', function ($scope) {
+}]);
+flightControllers.controller('ButtonsDirectCtrl', ['$scope', function ($scope) {
     $scope.radioModel = $scope.$parent.ButtonsDirectCtrlCheckModel;
     $scope.$watch('radioModel', function () {
         $scope.$parent.ButtonsDirectCtrlCheckModel = $scope.radioModel;
     });
 
-});
-flightControllers.controller('ButtonsEcoCtrl', function ($scope) {
+}]);
+flightControllers.controller('ButtonsEcoCtrl', ['$scope', function ($scope) {
     $scope.radioModel = $scope.$parent.ButtonsEcoCtrlCheckModel;
     $scope.$watch('radioModel', function () {
         $scope.$parent.ButtonsEcoCtrlCheckModel = $scope.radioModel;
     });
-});
+}]);
 
-flightControllers.controller('AdultNumberCtrl', function ($scope) {
+flightControllers.controller('AdultNumberCtrl', ['$scope', function ($scope) {
     $scope.number = {
         options: [
             0,
@@ -93,9 +93,9 @@ flightControllers.controller('AdultNumberCtrl', function ($scope) {
         $scope.$parent.AdultNumberCtrlSelected = $scope.number.selected;
     }
 
-});
+}]);
 
-flightControllers.controller('ChildNumberCtrl', function ($scope) {
+flightControllers.controller('ChildNumberCtrl', ['$scope', function ($scope) {
     $scope.number = {
         options: [
             0,
@@ -112,9 +112,9 @@ flightControllers.controller('ChildNumberCtrl', function ($scope) {
         $scope.$parent.ChildNumberCtrlSelected = $scope.number.selected;
     }
 
-});
+}]);
 
-flightControllers.controller('ButtonsGoCtrl', function ($scope, $location, FlightService) {
+flightControllers.controller('ButtonsGoCtrl', ['$scope', '$location', 'FlightService', function ($scope, $location, FlightService) {
     $scope.AdultNumberCtrlSelected = 0;
     $scope.ChildNumberCtrlSelected = 0;
     $scope.ButtonsEcoCtrlCheckModel = 'Y';
@@ -181,9 +181,9 @@ flightControllers.controller('ButtonsGoCtrl', function ($scope, $location, Fligh
         else div.style.visibility = 'hidden';
     });
 
-});
+}]);
 
-flightControllers.controller('CarouselCtrl', function ($scope) {
+flightControllers.controller('CarouselCtrl', ['$scope', function ($scope) {
     $scope.myInterval = 5000;
     $scope.noWrapSlides = false;
     var slides = $scope.slides = [];
@@ -239,9 +239,9 @@ flightControllers.controller('CarouselCtrl', function ($scope) {
 
         return array;
     }
-});
+}]);
 
-flightControllers.controller('DatepickerFromCtrl', function ($scope) {
+flightControllers.controller('DatepickerFromCtrl', ['$scope', function ($scope) {
     $scope.today = function() {
         $scope.dt = new Date();
     };
@@ -285,9 +285,9 @@ flightControllers.controller('DatepickerFromCtrl', function ($scope) {
 
 
 
-});
+}]);
 
-flightControllers.controller('DatepickerBackCtrl', function ($scope) {
+flightControllers.controller('DatepickerBackCtrl', ['$scope', function ($scope) {
     $scope.today = function() {
         $scope.dt = new Date();
     };
@@ -333,10 +333,10 @@ flightControllers.controller('DatepickerBackCtrl', function ($scope) {
         opened: false
     };
 
-});
+}]);
 
 
-flightControllers.controller('TableCtrl', function($scope, FlightService, $location) {
+flightControllers.controller('TableCtrl', ['$scope', 'FlightService', '$location', function($scope, FlightService, $location) {
     $scope.loadFinished = false;
     $scope.filters = '';
     $scope.resource = {};
@@ -429,4 +429,4 @@ flightControllers.controller('TableCtrl', function($scope, FlightService, $locat
     };
 
 
-});
+}]);

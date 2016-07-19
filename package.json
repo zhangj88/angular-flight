@@ -19,7 +19,10 @@
     "request": "latest",
     "gulp": "latest",
     "gulp-concat": "latest",
-    "gulp-minify-css": "latest"
+    "gulp-minify-css": "latest",
+    "gulp-rev": "latest",
+    "gulp-uglify": "latest",
+    "gulp-clean": "latest"
 
   },
   "scripts": {

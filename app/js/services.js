@@ -4,7 +4,7 @@
 
 var flightServices = angular.module('flightServices', ['ngResource']);
 
-flightServices.factory('FlightService',
+flightServices.factory('FlightService', ['$q', '$http',
     function($q, $http){
         var param = {}
 
@@ -54,7 +54,7 @@ flightServices.factory('FlightService',
             getData : getData
         }
 
-    });
+    }]);
 
 flightServices.factory('IATAService',
     function(){
