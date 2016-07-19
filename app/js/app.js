@@ -6,7 +6,7 @@ var flightApp = angular.module('flightApp', [
     'ngRoute',
     'ui.bootstrap',
     'ngTasty',
-    'flightAnimations',
+//    'flightAnimations',
     'flightControllers',
     'flightFilters',
     'flightServices'
