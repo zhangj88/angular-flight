@@ -5,7 +5,7 @@ var gulp = require('gulp'),
     uglify = require('gulp-uglify'),
     clean = require('gulp-clean');
 gulp.task('css', function() {
-    gulp.src(['./app/css/*.css'])
+    gulp.src(['./app/css/*.css', './app/bower_components/bootstrap/dist/css/bootstrap.min.css'])
         .pipe(concat('app.min.css'))
         .pipe(minifyCSS())
         .pipe(gulp.dest('./app/css/min'));
