@@ -11,7 +11,7 @@ app.get('/flight/research', function(req, res) {
 
     request.post({
         headers: {'content-type' : 'application/x-www-form-urlencoded; charset=utf-8'},
-        url:     'http://english.ctrip.com/flights/Ajax/First',
+        url:     'http://english.ctrip.com/flights/Ajax/FirstV3',
         body:    "MultDcity0=" + req.query.dcity + "&MultAcity0=" + req.query.acity + "&MultDDate0=" + req.query.ddate + "&MultDcity1=&MultAcity1=&MultDDate1=&" +
         "MultDcity2=&MultAcity2=&MultDDate2=&MultDcity3=&MultAcity3=&MultDDate3=&MultDcity4=&MultAcity4=&MultDDate4=&MultDcity5=&MultAcity5=&MultDDate5=&Search_FlightKey=&" +
         "FlightWay=" + req.query.flightway + "&DSeatClass=" + req.query.seatclass + "&DSeatSelect=" + req.query.seatclass + "&ChildType=ADT&Quantity=" + req.query.adult +
